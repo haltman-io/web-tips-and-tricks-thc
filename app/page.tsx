@@ -1,19 +1,24 @@
-import { Button } from "@/components/ui/button"
+import { TableOfContents } from "@/components/table-of-contents"
+import { renderTipsAndTricks } from "@/lib/render-tips-and-tricks"
 
-export default function Page() {
+export default async function Page() {
+  const content = await renderTipsAndTricks()
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+    <main
+      id="content"
+      tabIndex={-1}
+      className="tips-page bg-background outline-none"
+    >
+      <aside className="tips-toc-panel">
+        <TableOfContents className="h-full" />
+      </aside>
+      <div className="tips-compact-toc">
+        <TableOfContents />
       </div>
-    </div>
+      <article id="article-content" className="tips-article">
+        {content}
+      </article>
+    </main>
   )
 }
